@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --orange: #f39029;
+    --white: #f0f0f0;
+    --black: #0c0c0c;
+    --purple: #201d3a;
+    --turquoise: #2fa4a1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    min-height: 100vh;
+    background-color: var(--purple);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #38335f;
+    font-family: 'Alexandria', sans-serif;
+
+    .header__logotype {
+        display: flex;
+        align-items: center;
+
+        .header__logo-img {
+            width: 120px;
+        }
+
+        .header__title {
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: 600;
+        }
+    }
+
+    .header__cart {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+        cursor: pointer;
+
+        .header__cart-text {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .fa-bag-shopping,
+        .fa-basket-shopping {
+            color: var(--white);
+            font-size: 2rem;
+        }
+
+        .header__cart-qty {
+            width: 1.5rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-color: var(--orange);
+            color: var(--white);
+            display: grid;
+            place-content: center;
+            font-size: 0.75rem;
+            position: absolute;
+            top: 1.5rem;
+            right: 0;
+        }
+    }
+}
