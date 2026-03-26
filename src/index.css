@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Goudy+Bookletter+1911&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --orange: #f39029;
+    --beige: #feeeb8;
+    --white: #f0f0f0;
+    --black: #0c0c0c;
+    --purple: #201d3a;
+    --light-purple: #574e99;
+    --turquoise: #2fa4a1;
+    --light-turquoise: #64b6b2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    min-height: 100vh;
+    background-color: var(--purple);
+    display: flex;
+    flex-direction: column;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+    background-color: #1b1931;
+    box-shadow: 1px 1px 12px 1px var(--black);
+
+    .header__logotype {
+        display: flex;
+        align-items: center;
+
+        .header__logo-img {
+            width: 120px;
+        }
+
+        .header__title {
+            color: var(--beige);
+            font-size: 3rem;
+            font-weight: 500;
+        }
+    }
+
+    .header__cart {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        position: relative;
+
+        .header__cart-text {
+            color: var(--beige);
+            font-size: 1.5rem;
+        }
+
+        .fa-bag-shopping,
+        .fa-basket-shopping {
+            color: var(--beige);
+            font-size: 2rem;
+        }
+
+        .header__cart-qty {
+            width: 1.5rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-color: var(--orange);
+            color: var(--white);
+            display: grid;
+            place-content: center;
+            font-size: 0.75rem;
+            position: absolute;
+            top: 1.5rem;
+            right: 0;
+        }
+    }
+
+    .header__cart:hover * {
+        color: var(--white);
+    }
+}
+
+.page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem 6rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    .page__title {
+        font-size: 2.5rem;
+        text-align: center;
+        font-weight: 400;
+        color: var(--beige);
+    }
+
+    .book-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-self: flex-start;
+
+        .book-list__item {
+            color: var(--beige);
+            font-size: 1.25rem;
+            font-weight: 500;
+            padding: 0.5rem 0;
+        }
+
+        .book-list__item:hover {
+            cursor: pointer;
+            color: var(--orange);
+        }
+    }
+
+    .books-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+
+        .book {
+            background-color: var(--white);
+            padding: 2rem 1rem 1rem 1rem;
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+            color: var(--purple);
+
+            .book__top {
+                text-align: center;
+
+                .book__title {
+                    font-size: 1.25rem;
+                }
+
+                .book__subtitle {
+                    font-weight: 400;
+                }
+            }
+
+            .book__middle {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                .book__genre {
+                    color: var(--light-purple);
+                }
+
+                .book__desc {
+                    font-size: 1.25rem;
+                }
+
+                .book__pages {
+                    align-self: flex-end;
+                    color: var(--light-purple);
+                }
+            }
+
+            .book__btn {
+                align-self: center;
+            }
+        }
+
+        .book:hover {
+            cursor: pointer;
+            box-shadow: inset 0px 0px 8px 2px var(--orange);
+        }
+    }
+}
+
+.btn {
+    border: none;
+    border-radius: 2px;
+    padding: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    background-color: var(--turquoise);
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: var(--light-turquoise);
+}
