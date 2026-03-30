@@ -1,11 +1,11 @@
 import Cart from './Cart';
 import Logo from './Logo';
 
-const Header = () => {
+const Header = ({ qty }) => {
     return (
         <header className="header">
             <Logo />
-            <Cart />
+            <Cart qty={qty} />
         </header>
     );
 };
