@@ -9,6 +9,8 @@
     --light-purple: #574e99;
     --turquoise: #2fa4a1;
     --light-turquoise: #64b6b2;
+    --pink: rgb(228, 150, 150);
+    --light-pink: rgb(231, 182, 182);
 }
 
 * {
@@ -171,6 +173,25 @@
             .book__btn {
                 align-self: center;
             }
+
+            .counter {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .counter__btn {
+                    flex: 3;
+                    font-size: 1.5rem;
+                }
+
+                .counter__qty {
+                    flex: 2;
+                    text-align: center;
+                    font-size: 1.5rem;
+                    font-family: 'Times New Roman', Times, serif;
+                    font-weight: 600;
+                }
+            }
         }
 
         .book:hover {
@@ -191,7 +212,15 @@
     background-color: var(--turquoise);
 }
 
+.btn--red {
+    background-color: var(--pink);
+}
+
 .btn:hover {
     cursor: pointer;
     background-color: var(--light-turquoise);
+}
+
+.btn--red:hover {
+    background-color: var(--light-pink);
 }

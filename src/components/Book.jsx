@@ -2,7 +2,10 @@ import firstCaseToUpper from '../utils/firstCaseToUpper';
 import Button from './Button';
 import Counter from './Counter';
 
-const Book = ({ book, addToCart }) => {
+const Book = ({ book, cart, addToCart, removeFromCart }) => {
+    const bookInCart = cart.find((item) => item.id === book.id);
+    const qty = bookInCart ? bookInCart.quantity : 0;
+
     return (
         <article className="book">
             <section className="book__top">
@@ -21,7 +24,12 @@ const Book = ({ book, addToCart }) => {
                 className="book__btn"
                 onClick={() => addToCart(book)}
             /> */}
-            <Counter book={book} addToCart={addToCart} />
+            <Counter
+                book={book}
+                qty={qty}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+            />
         </article>
     );
 };

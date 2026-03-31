@@ -8,36 +8,50 @@ function App() {
 
     const addToCart = (book) => {
         setCart((prev) => {
-            const bookExist = prev.find((item) => item.id === book.id);
+            const bookExistInCart = prev.find((item) => item.id === book.id);
 
-            if (bookExist) {
-                return prev.map((item) =>
-                    item.id === book.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item,
+            if (bookExistInCart) {
+                // Returnerar en ny array med carts nuvarande innehåller samt ökar quantity på bok där ID matchar
+                return prev.map(
+                    (item) =>
+                        item.id === book.id
+                            ? { ...item, quantity: item.quantity + 1 } // Ökar quantity på boken i cart som matchar ID
+                            : item, // "Hoppar över" böcker i cart där ID INTE matchar
                 );
             } else {
+                // Returnerar en ny array med carts nuvarande innehåller + boken med nyckelvärdet 'quantity: 1'
                 return [...prev, { ...book, quantity: 1 }];
             }
         });
     };
-    console.log(cart);
 
     const removeFromCart = (book) => {
-        const existingItem = cart.find((item) => item.id === book.id);
+        setCart((prev) => {
+            const bookExistInCart = prev.find((item) => item.id === book.id);
 
-        if (existingItem) {
-            existingItem.quantity--;
-        } else {
-            setCart((prev) => prev.filter((item) => item !== book));
-        }
+            // Om boken finns i cart OCH har quantity 1
+            if (bookExistInCart?.quantity === 1) {
+                // Returnerar ny array UTAN boken som tagits bort
+                return prev.filter((item) => item.id !== book.id);
+            } else {
+                // Returnerar en ny array med carts nuvarande innehåller samt minskar quantity på bok där ID matchar
+                return prev.map((item) =>
+                    item.id === book.id
+                        ? { ...item, quantity: item.quantity - 1 }
+                        : item,
+                );
+            }
+        });
     };
-    console.log(cart);
 
     return (
         <div className="app">
             <Header qty={calculateCartQty(cart)} />
-            <BookPage addToCart={addToCart} />
+            <BookPage
+                cart={cart}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+            />
         </div>
     );
 }
