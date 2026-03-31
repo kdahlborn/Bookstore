@@ -2,9 +2,12 @@ import { useState } from 'react';
 import Header from './components/Header';
 import BookPage from './pages/BookPage';
 import calculateCartQty from './utils/calculateCartQty';
+import LoginForm from './components/LoginForm';
+import users from './data/users';
 
 function App() {
     const [cart, setCart] = useState([]);
+    const [activeUser, setActiveUser] = useState(null);
 
     const addToCart = (book) => {
         setCart((prev) => {
@@ -44,14 +47,33 @@ function App() {
         });
     };
 
+    const handleLogin = ({ username, password }) => {
+        const user = users.find(
+            (u) => u.username === username && u.password === password,
+        );
+
+        user
+            ? setActiveUser(user)
+            : console.log('Fel användarnamn eller lösenord');
+    };
+
     return (
         <div className="app">
-            <Header qty={calculateCartQty(cart)} />
-            <BookPage
+            {activeUser ? (
+                <BookPage
+                    cart={cart}
+                    addToCart={addToCart}
+                    removeFromCart={removeFromCart}
+                />
+            ) : (
+                <LoginForm handleLogin={handleLogin} />
+            )}
+            {/* <Header qty={calculateCartQty(cart)} /> */}
+            {/* <BookPage
                 cart={cart}
                 addToCart={addToCart}
                 removeFromCart={removeFromCart}
-            />
+            /> */}
         </div>
     );
 }
