@@ -1,30 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from './Button';
 
-const LoginForm = ({ handleLogin }) => {
-    const [user, setUser] = useState({ username: '', password: '' });
+const LoginForm = ({ users, setActiveUser, setDisplayLogin }) => {
+    const [errorMsg, setErrorMsg] = useState('');
+    const usernameRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleLogin(user);
+        const username = usernameRef.current.value;
+        const password = passwordRef.current.value;
+        const user = users.find(
+            (u) =>
+                u.username.toLowerCase() === username.toLowerCase().trim() &&
+                u.password === password,
+        );
+
+        user
+            ? setActiveUser(user)
+            : (setErrorMsg('Incorrect username or password'),
+              usernameRef.current.focus());
     };
+
+    const handleClick = () => {
+        setDisplayLogin(false);
+    };
+
+    useEffect(() => {
+        usernameRef.current.focus();
+    }, []);
 
     return (
         <section className="form-wrapper">
-            <h1 className="form-title">Login</h1>
-
-            <form className="form">
+            <form className="form" onSubmit={handleSubmit}>
+                <h1 className="form__title">Login</h1>
+                <p className="form__error">{errorMsg}</p>
                 <label className="form__label">
                     Username
                     <input
                         type="text"
                         id="username"
                         className="form__input"
-                        onChange={(e) =>
-                            setUser({ ...user, username: e.target.value })
-                        }
-                        value={user.username}
+                        ref={usernameRef}
                         autoComplete="off"
+                        required
                     />
                 </label>
                 <label className="form__label">
@@ -33,18 +52,14 @@ const LoginForm = ({ handleLogin }) => {
                         type="password"
                         id="password"
                         className="form__input"
-                        onChange={(e) =>
-                            setUser({ ...user, password: e.target.value })
-                        }
-                        value={user.password}
+                        ref={passwordRef}
+                        required
                     />
                 </label>
-                <Button
-                    text="Login"
-                    className="form__btn"
-                    onClick={handleSubmit}
-                />
-                <p className="form__footer">Don't have an account? Sign up</p>
+                <Button text="Login" className="form__btn" type="submit" />
+                <p className="form__footer" onClick={handleClick}>
+                    Don't have an account? Sign up
+                </p>
             </form>
         </section>
     );

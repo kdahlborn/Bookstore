@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const Cart = ({ qty }) => {
     return (
         <div className="header__cart">

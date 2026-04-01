@@ -3,17 +3,20 @@ import Header from './components/Header';
 import BookPage from './pages/BookPage';
 import calculateCartQty from './utils/calculateCartQty';
 import LoginForm from './components/LoginForm';
-import users from './data/users';
+import initUsers from './data/users';
+import RegisterForm from './components/RegisterForm';
 
 function App() {
     const [cart, setCart] = useState([]);
     const [activeUser, setActiveUser] = useState(null);
+    const [users, setUsers] = useState(initUsers);
+    const [displayLogin, setDisplayLogin] = useState(true);
 
     const addToCart = (book) => {
         setCart((prev) => {
-            const bookExistInCart = prev.find((item) => item.id === book.id);
+            const bookInCart = prev.find((item) => item.id === book.id);
 
-            if (bookExistInCart) {
+            if (bookInCart) {
                 // Returnerar en ny array med carts nuvarande innehåller samt ökar quantity på bok där ID matchar
                 return prev.map(
                     (item) =>
@@ -30,10 +33,10 @@ function App() {
 
     const removeFromCart = (book) => {
         setCart((prev) => {
-            const bookExistInCart = prev.find((item) => item.id === book.id);
+            const bookInCart = prev.find((item) => item.id === book.id);
 
             // Om boken finns i cart OCH har quantity 1
-            if (bookExistInCart?.quantity === 1) {
+            if (bookInCart?.quantity === 1) {
                 // Returnerar ny array UTAN boken som tagits bort
                 return prev.filter((item) => item.id !== book.id);
             } else {
@@ -47,33 +50,33 @@ function App() {
         });
     };
 
-    const handleLogin = ({ username, password }) => {
-        const user = users.find(
-            (u) => u.username === username && u.password === password,
-        );
-
-        user
-            ? setActiveUser(user)
-            : console.log('Fel användarnamn eller lösenord');
-    };
-
     return (
         <div className="app">
-            {activeUser ? (
+            <Header
+                qty={calculateCartQty(cart)}
+                activeUser={activeUser}
+                setActiveUser={setActiveUser}
+            />
+            {activeUser ? ( // Om activeUser finns: rendera BookPage
                 <BookPage
                     cart={cart}
                     addToCart={addToCart}
                     removeFromCart={removeFromCart}
+                    setActiveUser={setActiveUser}
+                />
+            ) : displayLogin ? ( // Tillståndsvariabel displayLogin styr om login- eller regformuläret ska visas
+                <LoginForm
+                    users={users}
+                    setActiveUser={setActiveUser}
+                    setDisplayLogin={setDisplayLogin}
                 />
             ) : (
-                <LoginForm handleLogin={handleLogin} />
+                <RegisterForm
+                    users={users}
+                    setUsers={setUsers}
+                    setDisplayLogin={setDisplayLogin}
+                />
             )}
-            {/* <Header qty={calculateCartQty(cart)} /> */}
-            {/* <BookPage
-                cart={cart}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-            /> */}
         </div>
     );
 }
