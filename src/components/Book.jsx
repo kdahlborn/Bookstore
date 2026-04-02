@@ -1,5 +1,4 @@
 import firstCaseToUpper from '../utils/firstCaseToUpper';
-import Button from './Button';
 import Counter from './Counter';
 
 const Book = ({ book, cart, addToCart, removeFromCart }) => {
@@ -19,11 +18,7 @@ const Book = ({ book, cart, addToCart, removeFromCart }) => {
                 <p className="book__desc">{book.desc}</p>
                 <p className="book__pages">{book.pages} pages</p>
             </section>
-            {/* <Button
-                text="Add to cart"
-                className="book__btn"
-                onClick={() => addToCart(book)}
-            /> */}
+
             <Counter
                 book={book}
                 qty={qty}
