@@ -1,14 +1,19 @@
 import books from '../../assets/books.json';
+import Book from './Book';
 
-const BookList = () => {
+const BookList = ({ cart, addToCart, removeFromCart }) => {
     return (
-        <ul className="book-list">
+        <section className="books-container">
             {books.map((book) => (
-                <li className="book-list__item" key={book.id}>
-                    {book.title} - {book.author}
-                </li>
+                <Book
+                    book={book}
+                    key={book.id}
+                    cart={cart}
+                    addToCart={addToCart}
+                    removeFromCart={removeFromCart}
+                />
             ))}
-        </ul>
+        </section>
     );
 };
 

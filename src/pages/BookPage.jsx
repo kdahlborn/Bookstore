@@ -1,17 +1,14 @@
 import BookList from '../components/BookList';
-import books from '../../assets/books.json';
-import Book from '../components/Book';
 
-const BookPage = () => {
+const BookPage = ({ cart, addToCart, removeFromCart }) => {
     return (
         <main className="page">
             <h1 className="page__title">Books</h1>
-            {/* <BookList /> */}
-            <section className="books-container">
-                {books.map((book) => (
-                    <Book book={book} key={book.id} />
-                ))}
-            </section>
+            <BookList
+                cart={cart}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+            />
         </main>
     );
 };
