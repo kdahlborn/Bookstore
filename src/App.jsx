@@ -5,6 +5,9 @@ import calculateCartQty from './utils/calculateCartQty';
 import LoginForm from './components/LoginForm';
 import initUsers from './data/users';
 import RegisterForm from './components/RegisterForm';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './components/Layout';
+import Error from './pages/Error';
 
 function App() {
     const [cart, setCart] = useState([]);
@@ -50,9 +53,50 @@ function App() {
         });
     };
 
+    const router = createBrowserRouter([
+        {
+            path: '/',
+            element: (
+                <Layout
+                    activeUser={activeUser}
+                    setActiveUser={setActiveUser}
+                    qty={calculateCartQty(cart)}
+                />
+            ),
+            errorElement: <Error />,
+            children: [
+                {
+                    index: true,
+                    element: (
+                        <LoginForm
+                            users={users}
+                            setActiveUser={setActiveUser}
+                            setDisplayLogin={setDisplayLogin}
+                        />
+                    ),
+                },
+                {
+                    path: 'books',
+                    element: (
+                        <BookPage
+                            cart={cart}
+                            addToCart={addToCart}
+                            removeFromCart={removeFromCart}
+                            setActiveUser={setActiveUser}
+                        />
+                    ),
+                },
+                {
+                    path: 'register',
+                    element: <RegisterForm users={users} setUsers={setUsers} />,
+                },
+            ],
+        },
+    ]);
+
     return (
         <div className="app">
-            <Header
+            {/* <Header
                 qty={calculateCartQty(cart)}
                 activeUser={activeUser}
                 setActiveUser={setActiveUser}
@@ -76,7 +120,8 @@ function App() {
                     setUsers={setUsers}
                     setDisplayLogin={setDisplayLogin}
                 />
-            )}
+            )} */}
+            <RouterProvider router={router} />
         </div>
     );
 }

@@ -63,6 +63,7 @@
             font-weight: 400;
             font-family: inherit;
             color: var(--beige);
+            text-decoration: none;
         }
 
         .header__logout-btn:hover {
@@ -111,6 +112,7 @@
 
 .page {
     width: 100%;
+    flex: 1;
     max-width: 1200px;
     margin: 0 auto;
     padding: 3rem 1rem 6rem 1rem;
@@ -269,6 +271,8 @@
         .form__footer {
             text-align: center;
             padding: 0.5rem;
+            color: var(--white);
+            text-decoration: none;
         }
         .form__footer:hover {
             cursor: pointer;
@@ -303,6 +307,8 @@
     font-weight: 700;
     color: var(--white);
     background-color: var(--turquoise);
+    text-align: center;
+    text-decoration: none;
 }
 
 .btn--red {
