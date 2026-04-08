@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button';
 
 const LoginForm = ({ users, setActiveUser, setDisplayLogin }) => {
     const [errorMsg, setErrorMsg] = useState('');
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,13 +19,9 @@ const LoginForm = ({ users, setActiveUser, setDisplayLogin }) => {
         );
 
         user
-            ? setActiveUser(user)
+            ? (setActiveUser(user), navigate('/books'))
             : (setErrorMsg('Incorrect username or password'),
               usernameRef.current.focus());
-    };
-
-    const handleClick = () => {
-        setDisplayLogin(false);
     };
 
     useEffect(() => {
@@ -57,9 +55,9 @@ const LoginForm = ({ users, setActiveUser, setDisplayLogin }) => {
                     />
                 </label>
                 <Button text="Login" className="form__btn" type="submit" />
-                <p className="form__footer" onClick={handleClick}>
+                <Link className="form__footer" to="/register">
                     Don't have an account? Sign up
-                </p>
+                </Link>
             </form>
         </section>
     );

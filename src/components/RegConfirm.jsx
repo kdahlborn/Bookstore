@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Button from './Button';
 
 const RegConfirm = ({ setDisplayLogin }) => {
@@ -8,11 +9,9 @@ const RegConfirm = ({ setDisplayLogin }) => {
     return (
         <article className="confirm">
             <h1 className="confirm__title">Registration successfull!</h1>
-            <Button
-                text="Login"
-                className="confirm__btn"
-                onClick={handleClick}
-            />
+            <Link to="/" className="confirm__btn btn">
+                Login
+            </Link>
         </article>
     );
 };
